@@ -84,11 +84,11 @@ export default function Navbar() {
             `}
           >
             {/* Logo */}
-            <Link href="/" className="pl-6 -mt-7.5!">
+            <Link href="/" className="pl-6 mt-0!">
               <Image
                 src="/gonomadigologo.png"
                 alt="Gonomadigo"
-                width={220}
+                width={180}
                 height={60}
                 className="object-contain"
                 style={{ filter: "brightness(0) invert(1)" }}
@@ -249,4 +249,3 @@ export default function Navbar() {
     </>
   );
 }
-
