@@ -81,7 +81,7 @@ export default function Testimonials() {
           w-[700px]
           h-[700px]
           rounded-full
-          bg-orange-500/10
+          bg-[#74B026]/8
           blur-[220px]
         "
       />
@@ -101,7 +101,7 @@ export default function Testimonials() {
               mb-8
             "
           >
-            <div className="w-2 h-2 rounded-full bg-orange-400" />
+            <div className="w-2 h-2 rounded-full bg-[#74B026]" />
 
             <span
               className="
@@ -166,7 +166,7 @@ export default function Testimonials() {
               "
             >
               {/* Stars */}
-              <div className="flex gap-2 mb-6 text-orange-400">
+              <div className="flex gap-2 mb-6 text-[#74B026]">
                 {[...Array(5)].map((_, i) => (
                   <FiStar
                     key={i}

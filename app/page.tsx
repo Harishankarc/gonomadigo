@@ -17,7 +17,7 @@ export default function Home() {
       <ScrollProgress />
       <MouseGlow />
 
-      <main className="bg-black text-white overflow-x-hidden">
+      <main className="bg-[#003215] text-white overflow-x-hidden">
         <Navbar />
         <Hero />
         <About />
@@ -30,3 +30,4 @@ export default function Home() {
     </>
   );
 }
+

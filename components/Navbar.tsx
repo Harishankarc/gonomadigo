@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -23,19 +24,19 @@ export default function Navbar() {
   const links = [
     {
       name: "About",
-      href: "#about",
+      href: "/#about",
     },
     {
       name: "Packages",
-      href: "#packages",
+      href: "/#packages",
     },
     {
       name: "Gallery",
-      href: "#gallery",
+      href: "/gallery",
     },
     {
       name: "Contact",
-      href: "#contact",
+      href: "/#contact",
     },
   ];
 
@@ -83,7 +84,7 @@ export default function Navbar() {
             `}
           >
             {/* Logo */}
-            <a href="#" className="pl-6 -mt-7.5!">
+            <Link href="/" className="pl-6 -mt-7.5!">
               <Image
                 src="/gonomadigologo.png"
                 alt="Gonomadigo"
@@ -93,7 +94,7 @@ export default function Navbar() {
                 style={{ filter: "brightness(0) invert(1)" }}
                 priority
               />
-            </a>
+            </Link>
 
             {/* Desktop Menu */}
             <div
@@ -109,7 +110,7 @@ export default function Navbar() {
               "
             >
               {links.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
                   className="
@@ -125,7 +126,7 @@ export default function Navbar() {
                   "
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
             </div>
 
@@ -141,7 +142,7 @@ export default function Navbar() {
                   bg-white
                   px-5
                   py-3
-                  text-black
+                  text-[#002215]
                   font-medium
                   transition-all
                   duration-300
@@ -213,7 +214,7 @@ export default function Navbar() {
           "
         >
           {links.map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
               onClick={() =>
@@ -227,7 +228,7 @@ export default function Navbar() {
               "
             >
               {link.name}
-            </a>
+            </Link>
           ))}
 
           <button
@@ -237,7 +238,7 @@ export default function Navbar() {
               bg-white
               px-8
               py-4
-              text-black
+              text-[#002215]
               font-medium
             "
           >
@@ -248,3 +249,4 @@ export default function Navbar() {
     </>
   );
 }
+

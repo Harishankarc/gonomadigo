@@ -7,6 +7,7 @@ import {
   FiYoutube,
   FiSend,
 } from "react-icons/fi";
+import Link from "next/link";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -30,7 +31,7 @@ export default function Footer() {
           -translate-x-1/2
           w-[700px]
           h-[300px]
-          bg-orange-500/10
+          bg-[#74B026]/8
           blur-[180px]
           pointer-events-none
         "
@@ -130,15 +131,15 @@ export default function Footer() {
 
             <div className="space-y-4">
               {[
-                "About",
-                "Packages",
-                "Gallery",
-                "Testimonials",
-                "Contact",
+                { name: "About", href: "/#about" },
+                { name: "Packages", href: "/#packages" },
+                { name: "Gallery", href: "/gallery" },
+                { name: "Testimonials", href: "/#testimonials" },
+                { name: "Contact", href: "/#contact" },
               ].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
+                <Link
+                  key={item.name}
+                  href={item.href}
                   className="
                     block
                     text-white/60
@@ -146,8 +147,8 @@ export default function Footer() {
                     transition-colors
                   "
                 >
-                  {item}
-                </a>
+                  {item.name}
+                </Link>
               ))}
             </div>
           </div>
@@ -203,7 +204,7 @@ export default function Footer() {
                   h-10
                   rounded-full
                   bg-white
-                  text-black
+                  text-[#002215]
                   flex
                   items-center
                   justify-center
@@ -230,7 +231,7 @@ export default function Footer() {
           "
         >
           <p className="text-white/40 text-sm">
-            © {currentYear} Gonomadigo.
+            Â© {currentYear} Gonomadigo.
             All rights reserved.
           </p>
 
@@ -287,3 +288,4 @@ export default function Footer() {
     </footer>
   );
 }
+

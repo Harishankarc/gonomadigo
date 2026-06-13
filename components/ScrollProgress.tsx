@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 
@@ -24,7 +24,7 @@ export default function ScrollProgress() {
 
   return (
     <div
-      className="fixed top-0 left-0 h-[2px] bg-white z-[9999]"
+      className="fixed top-0 left-0 h-[2px] bg-[#74B026] z-[9999]"
       style={{ width: `${progress}%` }}
     />
   );

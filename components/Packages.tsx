@@ -1,321 +1,356 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { FiArrowUpRight, FiMapPin, FiClock, FiUsers, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import {
+  FiMapPin, FiClock, FiUsers, FiArrowUpRight,
+  FiChevronLeft, FiChevronRight
+} from "react-icons/fi";
 
 const packages = [
   {
+    id: 0,
     title: "Kenya Safari Expedition",
     location: "Nairobi, Kenya",
     duration: "7 Days",
     group: "12 People",
     price: "₹89,999",
     tag: "SAFARI",
+    category: "safari",
     desc: "Witness the Great Migration across the Maasai Mara — lions, elephants and endless golden savanna at dawn.",
     image: "/kenya.jpg",
   },
   {
+    id: 1,
     title: "Thailand Island Escape",
     location: "Phuket & Krabi, Thailand",
     duration: "6 Days",
     group: "15 People",
     price: "₹42,999",
     tag: "BEACH & CULTURE",
+    category: "beach",
     desc: "Limestone karsts, turquoise lagoons, floating markets and temple trails through the heart of Southeast Asia.",
     image: "/thailand.jpg",
   },
   {
+    id: 2,
     title: "Lakshadweep Lagoon Dive",
     location: "Lakshadweep, India",
     duration: "5 Days",
     group: "10 People",
     price: "₹34,999",
     tag: "ISLAND",
+    category: "island",
     desc: "Crystal-clear coral atolls, untouched white sand and some of India's most pristine underwater worlds.",
     image: "/lakshadeep.jpg",
   },
   {
+    id: 3,
     title: "Rajasthan Desert Journey",
     location: "Jaisalmer & Jodhpur, Rajasthan",
     duration: "6 Days",
     group: "14 People",
     price: "₹22,999",
     tag: "DESERT",
+    category: "desert",
     desc: "Camel trails through the Thar, golden-hour dunes, fortress sunsets and starlit camps beneath the Rajasthani sky.",
     image: "/rajastan.jpg",
   },
 ];
 
-export default function Packages() {
-  const [active, setActive] = useState(0);
-  const [prev, setPrev] = useState<number | null>(null);
-  const [animating, setAnimating] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
+const CATEGORIES = [
+  { key: "all",    label: "All" },
+  { key: "safari", label: "Safari" },
+  { key: "beach",  label: "Beach & Culture" },
+  { key: "island", label: "Island" },
+  { key: "desert", label: "Desert" },
+];
 
-  const goTo = useCallback(
-    (index: number) => {
-      if (animating || index === active) return;
-      setAnimating(true);
-      setPrev(active);
-      setActive(index);
-      setTimeout(() => {
-        setPrev(null);
-        setAnimating(false);
-      }, 900);
-    },
-    [active, animating]
-  );
+/* ── 3-D tilt card ── */
+function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number }) {
+  const router = useRouter();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [hovered, setHovered] = useState(false);
 
-  // Auto-advance every 5s
-  useEffect(() => {
-    timerRef.current = setTimeout(() => {
-      goTo((active + 1) % packages.length);
-    }, 5000);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [active, goTo]);
-
-  // Reset timer on manual pick
-  const manualGo = (i: number) => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    goTo(i);
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width  - 0.5) * 18;
+    const y = ((e.clientY - r.top)  / r.height - 0.5) * -18;
+    el.style.transform = `perspective(900px) rotateY(${x}deg) rotateX(${y}deg) scale3d(1.03,1.03,1.03)`;
   };
 
-  const pkg = packages[active];
+  const onLeave = () => {
+    if (cardRef.current)
+      cardRef.current.style.transform =
+        "perspective(900px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)";
+    setHovered(false);
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={onMove}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={onLeave}
+      className="relative flex-shrink-0 w-[320px] md:w-[360px] h-[480px] rounded-[28px] overflow-hidden cursor-pointer group"
+      style={{
+        transition: "transform 0.15s ease-out, box-shadow 0.4s ease",
+        transformStyle: "preserve-3d",
+        willChange: "transform",
+        animationDelay: `${index * 0.08}s`,
+      }}
+    >
+      {/* Image */}
+      <Image
+        src={pkg.image}
+        alt={pkg.title}
+        fill
+        className="object-cover transition-transform duration-700 group-hover:scale-110"
+        sizes="(max-width: 768px) 85vw, 360px"
+      />
+
+      {/* Dark gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+      {/* Green glow on hover */}
+      <div className="absolute inset-0 rounded-[28px] border border-transparent group-hover:border-[#74B026]/40 transition-all duration-500 pointer-events-none" />
+      <div className="absolute -inset-[1px] rounded-[28px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{ boxShadow: "0 0 30px rgba(116,176,38,0.15), inset 0 0 30px rgba(116,176,38,0.05)" }}
+      />
+
+      {/* Top row */}
+      <div className="absolute top-4 left-4 right-4 flex items-start justify-between">
+        {/* Tag */}
+        <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#003215]/70 backdrop-blur-md border border-[#74B026]/30 text-[10px] tracking-[0.18em] text-[#74B026] uppercase font-light">
+          <span className="w-1 h-1 rounded-full bg-[#74B026]" />
+          {pkg.tag}
+        </span>
+        {/* Price */}
+        <span className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white text-xs font-light">
+          {pkg.price}
+        </span>
+      </div>
+
+      {/* Bottom panel */}
+      <div
+        className="absolute inset-x-0 bottom-0 p-5"
+        style={{ transform: "translateZ(20px)" }}
+      >
+        {/* Description — slides up on hover */}
+        <div className={`overflow-hidden transition-all duration-400 ${hovered ? "max-h-[80px] opacity-100 mb-3" : "max-h-0 opacity-0"}`}>
+          <p className="text-white/70 text-xs font-light leading-relaxed">
+            {pkg.desc}
+          </p>
+        </div>
+
+        {/* Title */}
+        <h3 className="font-display text-xl text-white leading-tight mb-2">
+          {pkg.title}
+        </h3>
+
+        {/* Location */}
+        <div className="flex items-center gap-1.5 mb-3">
+          <FiMapPin className="w-3 h-3 text-[#74B026]" />
+          <span className="text-white/50 text-xs font-light">{pkg.location}</span>
+        </div>
+
+        {/* Pills row */}
+        <div className="flex items-center gap-2 mb-4">
+          {[
+            { icon: <FiClock className="w-3 h-3" />, label: pkg.duration },
+            { icon: <FiUsers className="w-3 h-3" />, label: pkg.group },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.07] border border-white/10 text-white/60 text-[11px] font-light">
+              <span className="text-[#74B026]">{item.icon}</span>
+              {item.label}
+            </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <button
+          onClick={() => router.push(`/packages/${pkg.id}`)}
+          className="group/btn flex items-center gap-2 w-full justify-center py-2.5 rounded-full bg-[#74B026] hover:bg-[#8DC93A] text-white text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.02]"
+        >
+          View Details
+          <FiArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:rotate-45" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ── Main Section ── */
+export default function Packages() {
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [visible, setVisible] = useState(false);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Filtered list
+  const filtered = packages.filter(
+    (p) => activeCategory === "all" || p.category === activeCategory
+  );
+
+  // Fade-in on scroll
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.15 }
+    );
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  // Drag-to-scroll
+  useEffect(() => {
+    const el = stripRef.current;
+    if (!el) return;
+    let isDown = false, startX = 0, scrollLeft = 0;
+
+    const onDown = (e: MouseEvent) => {
+      isDown = true;
+      el.style.cursor = "grabbing";
+      startX = e.pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+    };
+    const onUp = () => { isDown = false; el.style.cursor = "grab"; };
+    const onMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - el.offsetLeft;
+      el.scrollLeft = scrollLeft - (x - startX) * 1.5;
+    };
+
+    el.addEventListener("mousedown", onDown);
+    el.addEventListener("mouseleave", onUp);
+    el.addEventListener("mouseup", onUp);
+    el.addEventListener("mousemove", onMove);
+    return () => {
+      el.removeEventListener("mousedown", onDown);
+      el.removeEventListener("mouseleave", onUp);
+      el.removeEventListener("mouseup", onUp);
+      el.removeEventListener("mousemove", onMove);
+    };
+  }, []);
+
+  const scroll = (dir: "left" | "right") => {
+    if (!stripRef.current) return;
+    stripRef.current.scrollBy({ left: dir === "right" ? 380 : -380, behavior: "smooth" });
+  };
 
   return (
     <section
       id="packages"
-      className="relative w-full overflow-hidden bg-black"
-      style={{ height: "100vh" }}
+      ref={sectionRef}
+      className="relative py-28 overflow-hidden bg-[#020d05]"
     >
-      {/* ── BACKGROUND LAYERS ── */}
+      {/* Ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#74B026]/5 blur-[180px] pointer-events-none" />
 
-      {/* Previous (fading out) */}
-      {prev !== null && (
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+
+        {/* ── Section Header ── */}
         <div
-          className="absolute inset-0 z-0"
-          style={{ animation: "bgFadeOut 0.9s ease forwards" }}
+          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
-          <Image
-            src={packages[prev].image}
-            alt={packages[prev].title}
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
-      )}
-
-      {/* Active (fading + zooming in) */}
-      <div
-        key={active}
-        className="absolute inset-0 z-0"
-        style={{ animation: "bgReveal 1s cubic-bezier(0.22,1,0.36,1) forwards" }}
-      >
-        <Image
-          src={pkg.image}
-          alt={pkg.title}
-          fill
-          className="object-cover"
-          priority
-          style={{ animation: "bgZoom 6s ease forwards" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
-      </div>
-
-      {/* Noise grain */}
-      <div className="absolute inset-0 z-[1] opacity-[0.03] pointer-events-none"
-        style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")" }} />
-
-      {/* ── MAIN CONTENT ── */}
-      <div className="relative z-10 h-full flex flex-col justify-between px-8 md:px-16 lg:px-24 pt-36 pb-12">
-
-        {/* Top — tag */}
-        <div
-          key={`tag-${active}`}
-          className="flex items-center gap-3"
-          style={{ animation: "slideUpFade 0.7s 0.1s ease both" }}
-        >
-          <span className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.8)]" />
-          <span className="text-xs tracking-[0.22em] text-white/50 font-light uppercase">
-            {pkg.tag}
-          </span>
-          <span className="text-white/20 text-xs">·</span>
-          <span className="text-xs tracking-widest text-white/30 font-light uppercase">
-            {String(active + 1).padStart(2, "0")} / {String(packages.length).padStart(2, "0")}
-          </span>
-        </div>
-
-        {/* Middle — hero text */}
-        <div className="flex items-end justify-between gap-8">
-          {/* Left — title + desc */}
-          <div className="flex-1 max-w-[640px]">
-            <div
-              key={`loc-${active}`}
-              style={{ animation: "slideUpFade 0.7s 0.15s ease both" }}
-              className="flex items-center gap-2 mb-4"
-            >
-              <FiMapPin className="text-orange-400 w-3 h-3" />
-              <span className="text-white/50 text-sm font-light tracking-wide">{pkg.location}</span>
+          <div>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#74B026]/10 border border-[#74B026]/20 mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#74B026] shadow-[0_0_8px_rgba(116,176,38,0.8)]" />
+              <span className="text-xs tracking-[0.2em] text-[#74B026] uppercase font-light">Our Packages</span>
             </div>
 
-            <h2
-              key={`title-${active}`}
-              style={{ animation: "slideUpFade 0.8s 0.2s cubic-bezier(0.22,1,0.36,1) both" }}
-              className="text-[clamp(52px,8vw,110px)] font-light leading-[0.95] tracking-tight text-white mb-6"
-            >
-              {pkg.title}
+            <h2 className="font-display text-5xl md:text-6xl font-light text-white leading-none">
+              Explore the
+              <span className="italic ml-3 text-[#74B026]">World</span>
             </h2>
+          </div>
 
-            <p
-              key={`desc-${active}`}
-              style={{ animation: "slideUpFade 0.7s 0.35s ease both" }}
-              className="text-white/50 text-base md:text-lg font-light leading-relaxed max-w-[480px] mb-8"
-            >
-              {pkg.desc}
+          <div className="flex items-center gap-6">
+            <p className="text-white/40 text-sm font-light">
+              {packages.length.toString().padStart(2, "0")} destinations
             </p>
-
-            {/* Meta pills */}
-            <div
-              key={`meta-${active}`}
-              style={{ animation: "slideUpFade 0.7s 0.45s ease both" }}
-              className="flex flex-wrap items-center gap-3 mb-10"
-            >
-              {[
-                { icon: <FiClock className="w-3 h-3" />, label: pkg.duration },
-                { icon: <FiUsers className="w-3 h-3" />, label: pkg.group },
-                { icon: null, label: pkg.price },
-              ].map(({ icon, label }, i) => (
-                <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-                  {icon && <span className="text-orange-400">{icon}</span>}
-                  <span className="text-white/70 text-sm font-light">{label}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div
-              key={`cta-${active}`}
-              style={{ animation: "slideUpFade 0.7s 0.55s ease both" }}
-              className="flex items-center gap-4"
-            >
-              <button className="group flex items-center gap-3 bg-white text-black rounded-full px-7 py-4 text-sm font-medium tracking-wide hover:scale-105 transition-all duration-300">
-                Book This Trip
-                <span className="flex items-center justify-center w-7 h-7 bg-black/10 rounded-full transition-transform duration-300 group-hover:rotate-45">
-                  <FiArrowUpRight />
-                </span>
-              </button>
-              <button className="text-white/50 text-sm font-light tracking-widest uppercase border-b border-white/20 pb-0.5 hover:text-white hover:border-white/50 transition-all duration-300">
-                View Details
-              </button>
-            </div>
-          </div>
-
-          {/* Right — thumbnail strip */}
-          <div className="hidden lg:flex flex-col gap-3 w-[220px] flex-shrink-0">
-            {packages.map((p, i) => (
+            {/* Arrows */}
+            <div className="flex gap-2">
               <button
-                key={i}
-                onClick={() => manualGo(i)}
-                className={`group relative rounded-2xl overflow-hidden transition-all duration-700 cursor-pointer border ${i === active
-                    ? "h-[160px] border-white/30"
-                    : "h-[72px] border-white/8 hover:border-white/20 hover:h-[88px]"
-                  }`}
-                style={{ transition: "height 0.7s cubic-bezier(0.22,1,0.36,1), border-color 0.3s" }}
+                onClick={() => scroll("left")}
+                className="w-11 h-11 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md flex items-center justify-center text-white/50 hover:text-white hover:border-[#74B026]/40 hover:bg-[#74B026]/10 transition-all duration-300"
               >
-                <Image
-                  src={p.image}
-                  alt={p.title}
-                  fill
-                  className="object-cover"
-                />
-                <div className={`absolute inset-0 transition-all duration-500 ${i === active ? "bg-black/20" : "bg-black/60 group-hover:bg-black/40"
-                  }`} />
-
-                {/* Progress bar on active */}
-                {i === active && (
-                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/15">
-                    <div
-                      key={`progress-${active}`}
-                      className="h-full bg-white"
-                      style={{ animation: "progressBar 5s linear forwards" }}
-                    />
-                  </div>
-                )}
-
-                <div className="absolute inset-0 p-3 flex flex-col justify-end">
-                  <p className={`text-white font-light leading-tight transition-all duration-300 ${i === active ? "text-sm opacity-100" : "text-xs opacity-60"
-                    }`}>
-                    {p.title}
-                  </p>
-                  {i === active && (
-                    <p className="text-white/50 text-xs mt-1 font-light">{p.location}</p>
-                  )}
-                </div>
+                <FiChevronLeft className="w-4 h-4" />
               </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom — mobile dots + arrows */}
-        <div className="flex items-center justify-between">
-          {/* Dots (mobile) */}
-          <div className="flex gap-2 lg:hidden">
-            {packages.map((_, i) => (
               <button
-                key={i}
-                onClick={() => manualGo(i)}
-                className={`rounded-full transition-all duration-500 ${i === active ? "w-8 h-1.5 bg-white" : "w-1.5 h-1.5 bg-white/30"
-                  }`}
-              />
-            ))}
-          </div>
-
-          {/* Arrows */}
-          <div className="flex gap-3 ml-auto">
-            <button
-              onClick={() => manualGo((active - 1 + packages.length) % packages.length)}
-              className="w-12 h-12 rounded-full border border-white/15 bg-white/5 backdrop-blur-md flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300"
-            >
-              <FiChevronLeft />
-            </button>
-            <button
-              onClick={() => manualGo((active + 1) % packages.length)}
-              className="w-12 h-12 rounded-full border border-white/15 bg-white/5 backdrop-blur-md flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300"
-            >
-              <FiChevronRight />
-            </button>
+                onClick={() => scroll("right")}
+                className="w-11 h-11 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md flex items-center justify-center text-white/50 hover:text-white hover:border-[#74B026]/40 hover:bg-[#74B026]/10 transition-all duration-300"
+              >
+                <FiChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* ── KEYFRAMES ── */}
-      <style>{`
-        @keyframes bgReveal {
-          from { opacity: 0; }
-          to   { opacity: 1; }
-        }
-        @keyframes bgFadeOut {
-          from { opacity: 1; }
-          to   { opacity: 0; }
-        }
-        @keyframes bgZoom {
-          from { transform: scale(1.08); }
-          to   { transform: scale(1); }
-        }
-        @keyframes slideUpFade {
-          from { opacity: 0; transform: translateY(30px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes progressBar {
-          from { width: 0%; }
-          to   { width: 100%; }
-        }
-      `}</style>
+        {/* ── Filter Tabs ── */}
+        <div
+          className={`flex items-center gap-2 mb-10 overflow-x-auto pb-1 scrollbar-hide transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        >
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setActiveCategory(cat.key)}
+              className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-light tracking-wide transition-all duration-300 border ${
+                activeCategory === cat.key
+                  ? "bg-[#74B026] border-[#74B026] text-white shadow-[0_0_20px_rgba(116,176,38,0.3)]"
+                  : "border-white/10 text-white/50 hover:text-white hover:border-white/25 bg-white/[0.03]"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* ── Card Strip ── */}
+        <div
+          ref={stripRef}
+          className={`flex gap-5 overflow-x-auto pb-6 scroll-smooth select-none transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            cursor: "grab",
+            scrollSnapType: "x mandatory",
+          }}
+        >
+          {filtered.length === 0 ? (
+            <div className="flex-1 flex items-center justify-center h-[480px] text-white/30 text-lg font-light">
+              No packages in this category yet.
+            </div>
+          ) : (
+            filtered.map((pkg, i) => (
+              <div key={pkg.id} style={{ scrollSnapAlign: "start" }}>
+                <PackageCard pkg={pkg} index={i} />
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* ── Dot indicators ── */}
+        <div className="flex justify-center gap-2 mt-6">
+          {filtered.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                if (!stripRef.current) return;
+                const cardWidth = 360 + 20; // card width + gap
+                stripRef.current.scrollTo({ left: i * cardWidth, behavior: "smooth" });
+              }}
+              className="w-1.5 h-1.5 rounded-full bg-white/20 hover:bg-[#74B026]/60 transition-all duration-300"
+            />
+          ))}
+        </div>
+
+      </div>
     </section>
   );
 }

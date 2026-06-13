@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "@/src/lib/gsap";
+import Link from "next/link";
+import { FiArrowRight } from "react-icons/fi";
 
 const images = [
   "/kenya.jpg",
@@ -64,7 +66,7 @@ export default function Gallery() {
         relative
         h-screen
         overflow-hidden
-        bg-black
+        bg-[#003215]
       "
     >
       {/* Background Glow */}
@@ -78,7 +80,7 @@ export default function Gallery() {
           w-[900px]
           h-[900px]
           rounded-full
-          bg-orange-500/10
+          bg-[#74B026]/8
           blur-[250px]
           pointer-events-none
         "
@@ -107,7 +109,7 @@ export default function Gallery() {
             mb-5
           "
         >
-          <div className="w-2 h-2 bg-orange-400 rounded-full" />
+          <div className="w-2 h-2 bg-[#74B026] rounded-full" />
 
           <span
             className="
@@ -180,7 +182,7 @@ export default function Gallery() {
                 absolute
                 inset-0
                 bg-gradient-to-t
-                from-black
+                from-[#003215]
                 via-black/20
                 to-transparent
               "
@@ -217,6 +219,57 @@ export default function Gallery() {
             </div>
           </div>
         ))}
+
+        {/* Explore Full Gallery CTA Card */}
+        <div
+          className="
+            relative
+            w-[50vw]
+            md:w-[40vw]
+            h-[75vh]
+            rounded-[40px]
+            overflow-hidden
+            flex-shrink-0
+            glass
+            flex
+            flex-col
+            items-center
+            justify-center
+            text-center
+            p-8
+            border
+            border-white/10
+            group
+          "
+        >
+          {/* Ambient Glow */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/90 to-[#003215]/80 z-0" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-[#74B026]/10 blur-[80px] group-hover:bg-[#74B026]/20 transition-all duration-700 z-0 pointer-events-none" />
+
+          {/* Card Content */}
+          <div className="relative z-10 flex flex-col items-center max-w-sm">
+            {/* Glowing Icon Container */}
+            <div className="w-16 h-16 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center mb-6 group-hover:border-[#74B026]/40 group-hover:bg-[#74B026]/10 transition-all duration-500 shadow-[0_0_15px_rgba(255,255,255,0.02)]">
+              <FiArrowRight className="w-6 h-6 text-[#74B026] transition-transform duration-500 group-hover:translate-x-1.5" />
+            </div>
+
+            <h3 className="font-display text-4xl text-white mb-4 leading-tight">
+              Captured<br />
+              <span className="italic text-[#74B026]">Moments</span>
+            </h3>
+
+            <p className="text-white/50 text-sm font-light leading-relaxed mb-8">
+              Step off the beaten path and browse our complete high-definition gallery of snapshots from across the globe.
+            </p>
+
+            <Link
+              href="/gallery"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#74B026] hover:bg-[#8DC93A] text-white text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.03] shadow-[0_4px_20px_rgba(116,176,38,0.25)]"
+            >
+              Explore Full Gallery
+            </Link>
+          </div>
+        </div>
       </div>
 
       <div
@@ -232,8 +285,9 @@ export default function Gallery() {
           uppercase
         "
       >
-        Scroll To Explore →
+        Scroll To Explore ’
       </div>
     </section>
   );
 }
+

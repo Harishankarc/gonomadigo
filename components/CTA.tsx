@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import { gsap } from "@/src/lib/gsap";
@@ -69,7 +69,7 @@ export default function CTA() {
           w-[900px]
           h-[900px]
           rounded-full
-          bg-orange-500/20
+          bg-[#74B026]/15
           blur-[220px]
           animate-pulse
         "
@@ -83,7 +83,7 @@ export default function CTA() {
           w-48
           h-48
           rounded-full
-          bg-orange-400/10
+          bg-[#74B026]/8
           blur-3xl
           animate-float
         "
@@ -127,7 +127,7 @@ export default function CTA() {
             mb-8
           "
         >
-          <div className="w-2 h-2 rounded-full bg-orange-400" />
+          <div className="w-2 h-2 rounded-full bg-[#74B026]" />
 
           <span
             className="
@@ -230,7 +230,7 @@ export default function CTA() {
               items-center
               gap-4
               bg-white
-              text-black
+              text-[#002215]
               px-8
               py-4
               rounded-full
@@ -257,3 +257,4 @@ export default function CTA() {
     </section>
   );
 }
+

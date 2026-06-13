@@ -20,15 +20,15 @@
 }
 
 :root {
-  --bg: #050505;
-  --bg-dark: #090909;
-  --cream: #F0EAE0;
-  --cream-muted: #B8A898;
-  --rust: #C8813A;
-  --rust-light: #E09050;
-  --text: #F0EAE0;
-  --pill-bg: rgba(240, 234, 224, 0.1);
-  --pill-border: rgba(240, 234, 224, 0.25);
+  --bg: #020d05;
+  --bg-dark: #040f07;
+  --cream: #F3FFE7;
+  --cream-muted: #a8c490;
+  --brand: #74B026;
+  --brand-light: #8DC93A;
+  --text: #F3FFE7;
+  --pill-bg: rgba(116, 176, 38, 0.1);
+  --pill-border: rgba(116, 176, 38, 0.25);
 }
 
 html {
@@ -62,16 +62,16 @@ section {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(116, 176, 38, 0.04);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(116, 176, 38, 0.12);
 }
 
 .gradient-text {
   background: linear-gradient(90deg,
       #ffffff,
-      #d4a85f);
+      #74B026);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -79,7 +79,7 @@ section {
 .cursor-dot {
   width: 8px;
   height: 8px;
-  background: var(--rust);
+  background: var(--brand);
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
@@ -90,7 +90,7 @@ section {
 .cursor-ring {
   width: 32px;
   height: 32px;
-  border: 1px solid rgba(200, 129, 58, 0.5);
+  border: 1px solid rgba(116, 176, 38, 0.5);
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
@@ -138,11 +138,11 @@ section {
 
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(200, 129, 58, 0.2);
+    box-shadow: 0 0 20px rgba(116, 176, 38, 0.2);
   }
 
   50% {
-    box-shadow: 0 0 40px rgba(200, 129, 58, 0.4);
+    box-shadow: 0 0 40px rgba(116, 176, 38, 0.4);
   }
 }
 

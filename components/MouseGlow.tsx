@@ -29,7 +29,7 @@ export default function MouseGlow() {
       rounded-full
       pointer-events-none
       blur-[160px]
-      bg-white/10
+      bg-[#F3FFE7]/25
       -translate-x-1/2
       -translate-y-1/2
       z-0

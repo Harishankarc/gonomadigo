@@ -96,7 +96,7 @@ export default function About() {
           w-[700px]
           h-[700px]
           rounded-full
-          bg-orange-500/10
+          bg-[#74B026]/10
           blur-[180px]
         "
       />
@@ -117,7 +117,7 @@ export default function About() {
             mb-10
           "
         >
-          <div className="w-2 h-2 rounded-full bg-orange-400" />
+          <div className="w-2 h-2 rounded-full bg-[#74B026]" />
           <span className="text-xs tracking-[4px] uppercase text-white/70">
             Our Story
           </span>
