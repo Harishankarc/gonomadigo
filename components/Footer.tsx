@@ -2,12 +2,19 @@
 
 import {
   FiInstagram,
-  FiFacebook,
-  FiTwitter,
-  FiYoutube,
+  FiMessageSquare,
+  FiGlobe,
+  FiMail,
   FiSend,
 } from "react-icons/fi";
 import Link from "next/link";
+
+const SOCIALS = [
+  { Icon: FiMessageSquare, href: "https://wa.me/919567130348" },
+  { Icon: FiInstagram, href: "https://www.instagram.com/gonomadigo/" },
+  { Icon: FiGlobe, href: "https://www.gonomadigo.com" },
+  { Icon: FiMail, href: "mailto:gonomadigo@gmail.com" },
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -18,8 +25,9 @@ export default function Footer() {
         relative
         overflow-hidden
         border-t
-        border-white/10
-        bg-black
+        border-[var(--border)]
+        bg-[var(--surface)]
+        text-[var(--text)]
       "
     >
       {/* Glow */}
@@ -62,7 +70,8 @@ export default function Footer() {
             <h2
               className="
                 font-display
-                text-5xl
+                text-4xl
+                sm:text-5xl
                 md:text-6xl
                 italic
                 mb-6
@@ -73,29 +82,25 @@ export default function Footer() {
 
             <p
               className="
-                text-white/60
+                text-[var(--muted-3)]
                 max-w-lg
                 leading-8
               "
             >
-              Premium hiking adventures crafted for
-              explorers who seek more than ordinary
-              travel experiences. Discover mountains,
-              forests, hidden trails, and unforgettable
-              journeys.
+              Gonomadigo is a Kerala-born travel and expedition
+              company crafting unforgettable journeys across the
+              world — from budget backpacking and solo expeditions
+              to fully customized luxury experiences.
             </p>
 
             {/* Social */}
             <div className="flex gap-4 mt-8">
-              {[
-                FiInstagram,
-                FiFacebook,
-                FiTwitter,
-                FiYoutube,
-              ].map((Icon, index) => (
+              {SOCIALS.map(({ Icon, href }, index) => (
                 <a
                   key={index}
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="
                     w-12
                     h-12
@@ -104,8 +109,8 @@ export default function Footer() {
                     flex
                     items-center
                     justify-center
-                    text-white/70
-                    hover:text-white
+                    text-[var(--muted-2)]
+                    hover:text-[var(--text)]
                     hover:scale-110
                     transition-all
                     duration-300
@@ -121,7 +126,7 @@ export default function Footer() {
           <div>
             <h3
               className="
-                text-white
+                text-[var(--text)]
                 font-semibold
                 mb-6
               "
@@ -134,7 +139,7 @@ export default function Footer() {
                 { name: "About", href: "/#about" },
                 { name: "Packages", href: "/#packages" },
                 { name: "Gallery", href: "/gallery" },
-                { name: "Testimonials", href: "/#testimonials" },
+                { name: "Shopping", href: "/shopping" },
                 { name: "Contact", href: "/#contact" },
               ].map((item) => (
                 <Link
@@ -142,8 +147,8 @@ export default function Footer() {
                   href={item.href}
                   className="
                     block
-                    text-white/60
-                    hover:text-white
+                    text-[var(--muted-3)]
+                    hover:text-[var(--text)]
                     transition-colors
                   "
                 >
@@ -157,7 +162,7 @@ export default function Footer() {
           <div>
             <h3
               className="
-                text-white
+                text-[var(--text)]
                 font-semibold
                 mb-6
               "
@@ -167,13 +172,13 @@ export default function Footer() {
 
             <p
               className="
-                text-white/60
+                text-[var(--muted-3)]
                 text-sm
                 mb-5
               "
             >
-              Get hiking tips, travel inspiration,
-              and exclusive adventure offers.
+              Get travel inspiration, curated itineraries,
+              and exclusive offers from Gonomadigo.
             </p>
 
             <div
@@ -194,7 +199,7 @@ export default function Footer() {
                   outline-none
                   px-4
                   text-sm
-                  text-white
+                  text-[var(--text)]
                 "
               />
 
@@ -203,8 +208,8 @@ export default function Footer() {
                   w-10
                   h-10
                   rounded-full
-                  bg-white
-                  text-[#002215]
+                  bg-[var(--btn-bg)]
+                  text-[var(--btn-text)]
                   flex
                   items-center
                   justify-center
@@ -217,7 +222,7 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-white/10 mb-8" />
+        <div className="h-px bg-[var(--border)] mb-8" />
 
         {/* Bottom */}
         <div
@@ -230,8 +235,8 @@ export default function Footer() {
             gap-4
           "
         >
-          <p className="text-white/40 text-sm">
-            Â© {currentYear} Gonomadigo.
+          <p className="text-[var(--muted-5)] text-sm">
+            © {currentYear} Gonomadigo.
             All rights reserved.
           </p>
 
@@ -245,8 +250,8 @@ export default function Footer() {
             <a
               href="#"
               className="
-                text-white/40
-                hover:text-white
+                text-[var(--muted-5)]
+                hover:text-[var(--text)]
                 transition-colors
               "
             >
@@ -256,8 +261,8 @@ export default function Footer() {
             <a
               href="#"
               className="
-                text-white/40
-                hover:text-white
+                text-[var(--muted-5)]
+                hover:text-[var(--text)]
                 transition-colors
               "
             >
@@ -277,7 +282,7 @@ export default function Footer() {
           text-[12vw]
           font-display
           italic
-          text-white/[0.03]
+          text-[var(--ghost)]
           whitespace-nowrap
           pointer-events-none
           select-none
@@ -288,4 +293,3 @@ export default function Footer() {
     </footer>
   );
 }
-

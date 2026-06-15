@@ -1,14 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
+import { getLenis } from "@/components/SmoothScroll";
+import { useSectionTransition } from "@/components/PageTransition";
+import BookingModal from "@/components/BookingModal";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const pathname = usePathname();
+  const { runTransition } = useSectionTransition();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +28,33 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    setMobileOpen(false);
+
+    const hashIndex = href.indexOf("#");
+    if (hashIndex === -1) return;
+
+    const targetPath = href.slice(0, hashIndex) || "/";
+    const hash = href.slice(hashIndex + 1);
+
+    if (pathname === targetPath) {
+      e.preventDefault();
+      runTransition(() => {
+        const el = document.getElementById(hash);
+        if (el) {
+          getLenis()?.scrollTo(el, { offset: -80, immediate: true });
+          window.history.pushState(null, "", `#${hash}`);
+        }
+      });
+    } else {
+      // Navigating from another page — resume the smooth scroll once landed
+      sessionStorage.setItem("scrollTarget", hash);
+    }
+  };
+
   const links = [
     {
       name: "About",
@@ -32,7 +66,11 @@ export default function Navbar() {
     },
     {
       name: "Gallery",
-      href: "/gallery",
+      href: "/#gallery",
+    },
+    {
+      name: "Shopping",
+      href: "/shopping",
     },
     {
       name: "Contact",
@@ -84,13 +122,13 @@ export default function Navbar() {
             `}
           >
             {/* Logo */}
-            <Link href="/" className="pl-6 mt-0!">
+            <Link href="/" className="pl-4 sm:pl-6 mt-0!">
               <Image
                 src="/gonomadigologo.png"
                 alt="Gonomadigo"
                 width={180}
                 height={60}
-                className="object-contain"
+                className="h-8 sm:h-10 md:h-[60px] w-auto object-contain"
                 style={{ filter: "brightness(0) invert(1)" }}
                 priority
               />
@@ -113,6 +151,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="
                     px-5
                     py-2
@@ -131,8 +170,9 @@ export default function Navbar() {
             </div>
 
             {/* CTA */}
-            <div className="hidden lg:block pr-4">
+            <div className="hidden lg:flex items-center gap-3 pr-4">
               <button
+                onClick={() => setBookingOpen(true)}
                 className="
                   group
                   flex
@@ -217,9 +257,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              onClick={() =>
-                setMobileOpen(false)
-              }
+              onClick={(e) => handleNavClick(e, link.href)}
               className="
                 text-3xl
                 font-light
@@ -232,8 +270,12 @@ export default function Navbar() {
           ))}
 
           <button
+            onClick={() => {
+              setMobileOpen(false);
+              setBookingOpen(true);
+            }}
             className="
-              mt-8
+              mt-4
               rounded-full
               bg-white
               px-8
@@ -246,6 +288,8 @@ export default function Navbar() {
           </button>
         </div>
       </motion.div>
+
+      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
     </>
   );
 }

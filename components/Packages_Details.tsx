@@ -7,6 +7,7 @@ import { FiArrowLeft, FiMapPin, FiClock, FiUsers, FiArrowUpRight, FiPlay, FiChev
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import MouseGlow from "@/components/MouseGlow";
+import CustomCursor from "@/components/CustomCursor";
 
 const packages = [
   {
@@ -14,16 +15,16 @@ const packages = [
     location: "Nairobi, Kenya",
     duration: "7 Days",
     group: "12 People",
-    price: "â‚¹89,999",
+    price: "₹89,999",
     tag: "SAFARI",
-    desc: "Witness the Great Migration across the Maasai Mara â€” lions, elephants and endless golden savanna at dawn.",
+    desc: "Witness the Great Migration across the Maasai Mara — lions, elephants and endless golden savanna at dawn.",
     image: "/kenya.jpg",
     gallery: [
       {
         src: "/kenya.jpg",
         caption: "Maasai Mara at golden hour",
         title: "Golden Hour Safari",
-        description: "As the sun dips below the acacia-lined horizon, the Maasai Mara transforms into a canvas of amber and gold â€” the perfect moment for a game drive.",
+        description: "As the sun dips below the acacia-lined horizon, the Maasai Mara transforms into a canvas of amber and gold — the perfect moment for a game drive.",
       },
       {
         src: "/kenya2.jpg",
@@ -41,14 +42,14 @@ const packages = [
         src: "/keyna4.jpg",
         caption: "Sunrise over the savanna",
         title: "Savanna Sunrise",
-        description: "Wake before dawn for the most magical hour on the Mara â€” the air is cool, the light is soft, and the wildlife is at its most active.",
+        description: "Wake before dawn for the most magical hour on the Mara — the air is cool, the light is soft, and the wildlife is at its most active.",
       },
     ],
     videos: [
-      { src: "/kenya_video.mp4", label: "Maasai Mara â€” The Awakening" },
+      { src: "/kenya_video2.mp4", label: "Maasai Mara — The Awakening" },
       { src: "/Kenya_video2.mp4", label: "The Great Migration" },
       { src: "/kenya_video3.mp4", label: "Bush Life at Dusk" },
-      { src: "/kenya_video4.mp4", label: "Sunrise on the Savanna" },
+      { src: "/kenya_video3.mp4", label: "Sunrise on the Savanna" },
     ],
     highlights: [
       "Maasai Mara game drives at sunrise and sunset",
@@ -60,7 +61,7 @@ const packages = [
     itinerary: [
       { day: "Day 1", title: "Arrival in Nairobi", desc: "Airport pickup, welcome dinner, overnight in Nairobi." },
       { day: "Day 2", title: "Fly to Maasai Mara", desc: "Charter flight, afternoon game drive, camp setup." },
-      { day: "Day 3â€“5", title: "Full Safari Days", desc: "Morning and evening game drives, bush walks, sundowners." },
+      { day: "Day 3–5", title: "Full Safari Days", desc: "Morning and evening game drives, bush walks, sundowners." },
       { day: "Day 6", title: "Cultural Experience", desc: "Maasai village visit, bead-work workshop, farewell dinner." },
       { day: "Day 7", title: "Departure", desc: "Return flight to Nairobi, international transfer." },
     ],
@@ -70,7 +71,7 @@ const packages = [
     location: "Phuket & Krabi, Thailand",
     duration: "6 Days",
     group: "15 People",
-    price: "â‚¹42,999",
+    price: "₹42,999",
     tag: "BEACH & CULTURE",
     desc: "Limestone karsts, turquoise lagoons, floating markets and temple trails through the heart of Southeast Asia.",
     image: "/thailand.jpg",
@@ -96,7 +97,7 @@ const packages = [
     location: "Lakshadweep, India",
     duration: "5 Days",
     group: "10 People",
-    price: "â‚¹34,999",
+    price: "₹34,999",
     tag: "ISLAND",
     desc: "Crystal-clear coral atolls, untouched white sand and some of India's most pristine underwater worlds.",
     image: "/lakshadeep.jpg",
@@ -109,7 +110,7 @@ const packages = [
       "Permit and ferry included",
     ],
     itinerary: [
-      { day: "Day 1", title: "Kochi â†’ Agatti", desc: "Flight to Agatti Island, lagoon welcome, beach evening." },
+      { day: "Day 1", title: "Kochi → Agatti", desc: "Flight to Agatti Island, lagoon welcome, beach evening." },
       { day: "Day 2", title: "Dive Day 1", desc: "Beginner or advanced scuba sessions, reef exploration." },
       { day: "Day 3", title: "Island Hop", desc: "Speed boat to Bangaram, glass-bottom boat, snorkelling." },
       { day: "Day 4", title: "Kayak & Relax", desc: "Sunrise kayak, free time, bioluminescence walk at night." },
@@ -121,7 +122,7 @@ const packages = [
     location: "Jaisalmer & Jodhpur, Rajasthan",
     duration: "6 Days",
     group: "14 People",
-    price: "â‚¹22,999",
+    price: "₹22,999",
     tag: "DESERT",
     desc: "Camel trails through the Thar, golden-hour dunes, fortress sunsets and starlit camps beneath the Rajasthani sky.",
     image: "/rajastan.jpg",
@@ -198,7 +199,7 @@ function TiltCard({ item, index }: { item: GalleryItem; index: number }) {
         className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
 
-      {/* gradient overlay â€” always slightly visible, deepens on hover */}
+      {/* gradient overlay — always slightly visible, deepens on hover */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-500 opacity-60 group-hover:opacity-100" />
 
       {/* gloss sheen */}
@@ -211,7 +212,7 @@ function TiltCard({ item, index }: { item: GalleryItem; index: number }) {
       >
         {/* glass card */}
         <div className="rounded-2xl bg-black/50 backdrop-blur-xl border border-white/10 p-4 space-y-2">
-          {/* top row â€” icon dot + caption tag */}
+          {/* top row — icon dot + caption tag */}
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#74B026] shrink-0" />
             <span className="text-[#74B026]/80 text-[10px] tracking-[0.2em] uppercase font-light">{item.caption}</span>
@@ -346,11 +347,11 @@ export default function PackagesDetails({ id }: { id: string }) {
 
   if (!pkg) {
     return (
-      <div className="min-h-screen bg-[#020d05] text-white flex flex-col items-center justify-center gap-6">
-        <p className="text-white/50 text-lg">Package not found.</p>
+      <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] flex flex-col items-center justify-center gap-6">
+        <p className="text-[var(--muted-4)] text-lg">Package not found.</p>
         <button
           onClick={() => router.push("/")}
-          className="flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#002215] font-medium hover:scale-105 transition-all"
+          className="flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--btn-bg)] text-[var(--btn-text)] font-medium hover:scale-105 transition-all"
         >
           <FiArrowLeft /> Back to Home
         </button>
@@ -360,6 +361,9 @@ export default function PackagesDetails({ id }: { id: string }) {
 
   const hasGallery = pkg.gallery && pkg.gallery.length > 0;
   const hasVideos = pkg.videos && pkg.videos.length > 0;
+
+  const whatsappMessage = `Hi! I'm interested in booking the "${pkg.title}" package.`;
+  const whatsappLink = `https://wa.me/919567130348?text=${encodeURIComponent(whatsappMessage)}`;
 
   // playlist state
   const [videoIndex, setVideoIndex] = useState(0);
@@ -380,24 +384,16 @@ export default function PackagesDetails({ id }: { id: string }) {
   }, [videoIndex, pkg.videos, goToVideo]);
 
   return (
-    <div className="min-h-screen bg-[#020d05] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] overflow-x-hidden">
       <ScrollProgress />
       <MouseGlow />
+      <CustomCursor />
       <Navbar />
 
-      {/* Ã¢â€â‚¬Ã¢â€â‚¬ HERO Ã¢â€â‚¬Ã¢â€â‚¬ */}
+      {/* ── HERO ── */}
       <div className="relative h-[70vh] overflow-hidden">
         <Image src={pkg.image} alt={pkg.title} fill className="object-cover" priority />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/40 to-black/30" />
-
-        {/* back button */}
-        <button
-          onClick={() => router.back()}
-          className="absolute top-8 left-8 z-20 flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300"
-        >
-          <FiArrowLeft className="w-4 h-4" />
-          <span className="text-sm font-light tracking-wide">Back</span>
-        </button>
 
         {/* hero text */}
         <div className="absolute bottom-12 left-8 md:left-16 z-10">
@@ -405,7 +401,7 @@ export default function PackagesDetails({ id }: { id: string }) {
             <span className="w-1.5 h-1.5 rounded-full bg-[#74B026] shadow-[0_0_8px_rgba(116,176,38,0.8)]" />
             {pkg.tag}
           </span>
-          <h1 className="font-display text-5xl md:text-7xl font-light leading-[0.95] mb-4">{pkg.title}</h1>
+          <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-light leading-[0.95] mb-4">{pkg.title}</h1>
           <div className="flex items-center gap-2 text-white/50">
             <FiMapPin className="w-3.5 h-3.5 text-[#74B026]" />
             <span className="text-sm font-light">{pkg.location}</span>
@@ -413,50 +409,55 @@ export default function PackagesDetails({ id }: { id: string }) {
         </div>
       </div>
 
-      {/* Ã¢â€â‚¬Ã¢â€â‚¬ BODY Ã¢â€â‚¬Ã¢â€â‚¬ */}
+      {/* ── BODY ── */}
       <div className="max-w-6xl mx-auto px-6 md:px-16 py-20">
 
         {/* meta + CTA */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-20 pb-12 border-b border-white/10">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-20 pb-12 border-b border-[var(--border)]">
           <div className="flex flex-wrap gap-4">
             {[
               { icon: <FiClock className="w-4 h-4" />, label: pkg.duration },
               { icon: <FiUsers className="w-4 h-4" />, label: pkg.group },
               { icon: null, label: pkg.price },
             ].map(({ icon, label }, i) => (
-              <div key={i} className="flex items-center gap-2.5 px-5 py-3 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md">
+              <div key={i} className="flex items-center gap-2.5 px-5 py-3 rounded-full border border-[var(--border)] bg-white/[0.04] backdrop-blur-md">
                 {icon && <span className="text-[#74B026]">{icon}</span>}
-                <span className="text-white/70 text-sm font-light">{label}</span>
+                <span className="text-[var(--muted-2)] text-sm font-light">{label}</span>
               </div>
             ))}
           </div>
 
-          <button className="group flex items-center gap-3 bg-white text-[#002215] rounded-full px-7 py-4 text-sm font-medium tracking-wide hover:scale-105 transition-all duration-300 shrink-0">
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 bg-[var(--btn-bg)] text-[var(--btn-text)] rounded-full px-7 py-4 text-sm font-medium tracking-wide hover:scale-105 transition-all duration-300 shrink-0"
+          >
             Book This Trip
-            <span className="flex items-center justify-center w-7 h-7 bg-black/10 rounded-full transition-transform duration-300 group-hover:rotate-45">
+            <span className="flex items-center justify-center w-7 h-7 bg-[var(--btn-icon-bg)] rounded-full transition-transform duration-300 group-hover:rotate-45">
               <FiArrowUpRight />
             </span>
-          </button>
+          </a>
         </div>
 
         {/* overview + highlights */}
         <div className="grid md:grid-cols-2 gap-16 mb-24">
           <div>
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 mb-6">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-[var(--border)] mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#74B026]" />
-              <span className="text-xs tracking-[0.2em] uppercase text-white/50">Overview</span>
+              <span className="text-xs tracking-[0.2em] uppercase text-[var(--muted-4)]">Overview</span>
             </div>
-            <p className="text-white/70 text-lg leading-8">{pkg.desc}</p>
+            <p className="text-[var(--muted-2)] text-lg leading-8">{pkg.desc}</p>
           </div>
 
           <div>
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 mb-6">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-[var(--border)] mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#74B026]" />
-              <span className="text-xs tracking-[0.2em] uppercase text-white/50">Highlights</span>
+              <span className="text-xs tracking-[0.2em] uppercase text-[var(--muted-4)]">Highlights</span>
             </div>
             <ul className="space-y-4">
               {pkg.highlights.map((h, i) => (
-                <li key={i} className="flex items-start gap-3 text-white/70">
+                <li key={i} className="flex items-start gap-3 text-[var(--muted-2)]">
                   <span className="mt-2 w-1 h-1 rounded-full bg-[#74B026] shrink-0" />
                   <span className="text-base font-light leading-relaxed">{h}</span>
                 </li>
@@ -465,20 +466,20 @@ export default function PackagesDetails({ id }: { id: string }) {
           </div>
         </div>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 3D GALLERY (only shown when gallery images exist) Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* ── 3D GALLERY (only shown when gallery images exist) ── */}
         {hasGallery && (
           <div className="mb-24">
             {/* section header */}
             <div className="flex items-center gap-6 mb-12">
-              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-[var(--border)]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#74B026]" />
-                <span className="text-xs tracking-[0.2em] uppercase text-white/50">Photo Gallery</span>
+                <span className="text-xs tracking-[0.2em] uppercase text-[var(--muted-4)]">Photo Gallery</span>
               </div>
-              <div className="flex-1 h-px bg-white/[0.06]" />
+              <div className="flex-1 h-px bg-[var(--border)]" />
             </div>
 
             {/* 2-column masonry-style grid */}
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {pkg.gallery.map((item, i) => (
                 <TiltCard key={i} item={item} index={i} />
               ))}
@@ -491,23 +492,23 @@ export default function PackagesDetails({ id }: { id: string }) {
           </div>
         )}
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ VIDEO PLAYLIST Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* ── VIDEO PLAYLIST ── */}
         {hasVideos && (
           <div className="mb-24">
             {/* section header */}
             <div className="flex items-center gap-6 mb-12">
-              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-[var(--border)]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#74B026]" />
-                <span className="text-xs tracking-[0.2em] uppercase text-white/50">Experience It</span>
+                <span className="text-xs tracking-[0.2em] uppercase text-[var(--muted-4)]">Experience It</span>
               </div>
-              <div className="flex-1 h-px bg-white/[0.06]" />
-              <span className="text-white/30 text-xs font-light tracking-widest">
+              <div className="flex-1 h-px bg-[var(--border)]" />
+              <span className="text-[var(--muted-5)] text-xs font-light tracking-widest">
                 {String(videoIndex + 1).padStart(2, "0")} / {String(pkg.videos!.length).padStart(2, "0")}
               </span>
             </div>
 
             <div className="flex gap-5">
-              {/* Ã¢â€â‚¬Ã¢â€â‚¬ Main player Ã¢â€â‚¬Ã¢â€â‚¬ */}
+              {/* ── Main player ── */}
               <div
                 className="relative flex-1 rounded-[32px] overflow-hidden group"
                 style={{
@@ -562,7 +563,7 @@ export default function PackagesDetails({ id }: { id: string }) {
                 <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-[#74B026]/15 blur-[80px] pointer-events-none" />
               </div>
 
-              {/* Ã¢â€â‚¬Ã¢â€â‚¬ Thumbnail sidebar Ã¢â€â‚¬Ã¢â€â‚¬ */}
+              {/* ── Thumbnail sidebar ── */}
               <div className="hidden lg:flex flex-col gap-3 w-[200px] shrink-0">
                 {pkg.videos!.map((v, i) => (
                   <button
@@ -574,7 +575,7 @@ export default function PackagesDetails({ id }: { id: string }) {
                       }`}
                     style={{ transition: "height 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.3s" }}
                   >
-                    {/* first-frame thumbnail Ã¢â‚¬â€ loaded but not playing */}
+                    {/* first-frame thumbnail — loaded but not playing */}
                     <video
                       src={v.src}
                       preload="metadata"
@@ -626,7 +627,7 @@ export default function PackagesDetails({ id }: { id: string }) {
                 <button
                   key={i}
                   onClick={() => goToVideo(i)}
-                  className={`rounded-full transition-all duration-500 ${i === videoIndex ? "w-8 h-1.5 bg-[#74B026]" : "w-1.5 h-1.5 bg-white/30"
+                  className={`rounded-full transition-all duration-500 ${i === videoIndex ? "w-8 h-1.5 bg-[#74B026]" : "w-1.5 h-1.5 bg-[var(--muted-6)]"
                     }`}
                 />
               ))}
@@ -636,9 +637,9 @@ export default function PackagesDetails({ id }: { id: string }) {
 
         {/* itinerary */}
         <div className="mb-24">
-          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 mb-10">
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-[var(--border)] mb-10">
             <span className="w-1.5 h-1.5 rounded-full bg-[#74B026]" />
-            <span className="text-xs tracking-[0.2em] uppercase text-white/50">Itinerary</span>
+            <span className="text-xs tracking-[0.2em] uppercase text-[var(--muted-4)]">Itinerary</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -665,7 +666,7 @@ export default function PackagesDetails({ id }: { id: string }) {
                     key={i}
                     onClick={() => setActiveDay(i)}
                     className={`w-full text-left group flex items-start gap-4 p-5 rounded-2xl transition-all duration-300 border ${isActive
-                      ? "bg-white/[0.05] border-white/10 shadow-[0_4px_30px_rgba(116,176,38,0.05)]"
+                      ? "bg-white/[0.05] border-[var(--border)] shadow-[0_4px_30px_rgba(116,176,38,0.05)]"
                       : "bg-transparent border-transparent hover:bg-white/[0.02] hover:border-white/[0.05]"
                       }`}
                   >
@@ -678,7 +679,7 @@ export default function PackagesDetails({ id }: { id: string }) {
 
                       <div className={`flex items-center justify-center w-8 h-8 rounded-full border transition-all duration-300 ${isActive
                         ? "bg-gradient-to-br from-[#74B026] to-[#8DC93A] border-[#74B026] text-white shadow-[0_0_12px_rgba(116,176,38,0.4)]"
-                        : "bg-white/[0.02] border-white/10 text-white/40 group-hover:text-white/70 group-hover:border-white/20"
+                        : "bg-white/[0.02] border-[var(--border)] text-[var(--muted-5)] group-hover:text-[var(--muted-2)] group-hover:border-[var(--muted-6)]"
                         }`}>
                         <IconComponent className="w-4 h-4" />
                       </div>
@@ -686,7 +687,7 @@ export default function PackagesDetails({ id }: { id: string }) {
 
                     <div className="flex-1 min-w-0 pt-0.5">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className={`text-[10px] tracking-widest font-mono uppercase ${isActive ? "text-[#74B026] font-medium" : "text-white/30"}`}>
+                        <span className={`text-[10px] tracking-widest font-mono uppercase ${isActive ? "text-[#74B026] font-medium" : "text-[var(--muted-5)]"}`}>
                           {item.day}
                         </span>
                         {isActive && (
@@ -695,15 +696,15 @@ export default function PackagesDetails({ id }: { id: string }) {
                           </span>
                         )}
                       </div>
-                      <h4 className={`font-display text-lg leading-snug transition-colors duration-300 ${isActive ? "text-white" : "text-white/60 group-hover:text-white/90"
+                      <h4 className={`font-display text-lg leading-snug transition-colors duration-300 ${isActive ? "text-[var(--text)]" : "text-[var(--muted-3)] group-hover:text-[var(--muted-1)]"
                         }`}>
                         {item.title}
                       </h4>
 
                       {/* Mobile Expandable Content */}
                       <div className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${isActive ? "max-h-[500px] opacity-100 mt-4" : "max-h-0 opacity-0"}`}>
-                        <div className="space-y-4 pt-4 border-t border-white/5">
-                          <p className="text-white/70 text-sm leading-relaxed font-light font-sans">
+                        <div className="space-y-4 pt-4 border-t border-[var(--border)]">
+                          <p className="text-[var(--muted-2)] text-sm leading-relaxed font-light font-sans">
                             {item.desc}
                           </p>
 
@@ -714,11 +715,11 @@ export default function PackagesDetails({ id }: { id: string }) {
                               { label: "Meals", value: meta.meals },
                               { label: "Pace", value: meta.activity }
                             ].map((spec, index) => (
-                              <div key={index} className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center">
-                                <span className="text-[8px] uppercase tracking-wider text-white/40 block font-light">
+                              <div key={index} className="p-2 rounded-lg bg-white/[0.02] border border-[var(--border)] text-center">
+                                <span className="text-[8px] uppercase tracking-wider text-[var(--muted-5)] block font-light">
                                   {spec.label}
                                 </span>
-                                <span className="text-[10px] text-white/80 font-medium truncate block font-sans">
+                                <span className="text-[10px] text-[var(--muted-1)] font-medium truncate block font-sans">
                                   {spec.value}
                                 </span>
                               </div>
@@ -734,7 +735,7 @@ export default function PackagesDetails({ id }: { id: string }) {
 
             {/* Right Column: Immersive selected day details showcase (Desktop only) */}
             <div className="hidden lg:block lg:col-span-7 h-full">
-              <div className="relative rounded-[28px] overflow-hidden bg-white/[0.03] border border-white/10 p-6 md:p-8 backdrop-blur-xl">
+              <div className="relative rounded-[28px] overflow-hidden bg-white/[0.03] border border-[var(--border)] p-6 md:p-8 backdrop-blur-xl">
                 {/* Ambient dynamic radial glow matching the active day category */}
                 <div
                   className="absolute -top-40 -right-40 w-96 h-96 rounded-full blur-[120px] opacity-40 transition-all duration-500 pointer-events-none animate-pulse"
@@ -748,12 +749,12 @@ export default function PackagesDetails({ id }: { id: string }) {
                 />
 
                 {/* Card header */}
-                <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10">
+                <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[var(--border)]">
                   <div className="space-y-1">
                     <span className="text-[#74B026]/80 font-mono text-xs tracking-[0.2em] uppercase font-light">
-                      Detailed Plan Ã¢â‚¬Â¢ {pkg.itinerary[activeDay].day}
+                      Detailed Plan • {pkg.itinerary[activeDay].day}
                     </span>
-                    <h3 className="font-display text-2xl md:text-3xl text-white font-light">
+                    <h3 className="font-display text-2xl md:text-3xl text-[var(--text)] font-light">
                       {pkg.itinerary[activeDay].title}
                     </h3>
                   </div>
@@ -769,23 +770,23 @@ export default function PackagesDetails({ id }: { id: string }) {
 
                 {/* Day description */}
                 <div className="relative z-10 py-6">
-                  <p className="text-white/80 text-base leading-relaxed font-light font-sans">
+                  <p className="text-[var(--muted-1)] text-base leading-relaxed font-light font-sans">
                     {pkg.itinerary[activeDay].desc}
                   </p>
                 </div>
 
                 {/* Specs grid */}
-                <div className="relative z-10 grid grid-cols-3 gap-4 pt-6 border-t border-white/10 mb-6">
+                <div className="relative z-10 grid grid-cols-3 gap-4 pt-6 border-t border-[var(--border)] mb-6">
                   {[
                     { label: "Accommodation", value: getDayMetadata(pkg.itinerary[activeDay].title, pkg.itinerary[activeDay].desc, pkg.location).stay },
                     { label: "Meals Included", value: getDayMetadata(pkg.itinerary[activeDay].title, pkg.itinerary[activeDay].desc, pkg.location).meals },
                     { label: "Activity Level", value: getDayMetadata(pkg.itinerary[activeDay].title, pkg.itinerary[activeDay].desc, pkg.location).activity }
                   ].map((spec, i) => (
-                    <div key={i} className="space-y-1.5 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                      <span className="text-[10px] uppercase tracking-wider text-white/40 block font-light">
+                    <div key={i} className="space-y-1.5 p-3 rounded-xl bg-white/[0.02] border border-[var(--border)]">
+                      <span className="text-[10px] uppercase tracking-wider text-[var(--muted-5)] block font-light">
                         {spec.label}
                       </span>
-                      <span className="text-xs text-white/80 font-medium leading-tight block font-sans">
+                      <span className="text-xs text-[var(--muted-1)] font-medium leading-tight block font-sans">
                         {spec.value}
                       </span>
                     </div>
@@ -793,11 +794,11 @@ export default function PackagesDetails({ id }: { id: string }) {
                 </div>
 
                 {/* Micro highlights block */}
-                <div className="relative z-10 p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex gap-3.5 items-start">
+                <div className="relative z-10 p-4 rounded-2xl bg-white/[0.02] border border-[var(--border)] flex gap-3.5 items-start">
                   <span className="mt-1 flex h-2 w-2 shrink-0 rounded-full bg-[#74B026] shadow-[0_0_8px_rgba(116,176,38,0.8)]" />
                   <div className="space-y-1">
                     <span className="text-[11px] font-mono tracking-widest text-[#74B026] uppercase font-medium">Daily Highlights</span>
-                    <p className="text-white/60 text-xs font-light leading-relaxed font-sans">
+                    <p className="text-[var(--muted-3)] text-xs font-light leading-relaxed font-sans">
                       {pkg.itinerary[activeDay].desc.includes("game drive") || pkg.itinerary[activeDay].title.includes("Safari")
                         ? "Equipped with professional open-top safari cruisers for perfect 360-degree photography."
                         : pkg.itinerary[activeDay].title.includes("Arrival")
@@ -817,20 +818,22 @@ export default function PackagesDetails({ id }: { id: string }) {
         </div>
 
         {/* bottom CTA */}
-        <div className="text-center py-20 border-t border-white/10">
-          <h2 className="font-display text-4xl md:text-6xl italic mb-6">Ready to explore?</h2>
-          <p className="text-white/50 mb-10 text-lg font-light">Spots fill fast  secure your adventure today.</p>
-          <button className="group inline-flex items-center gap-3 bg-white text-[#002215] rounded-full px-8 py-4 font-medium hover:scale-105 transition-all duration-300">
+        <div className="text-center py-20 border-t border-[var(--border)]">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-6xl italic mb-6">Ready to explore?</h2>
+          <p className="text-[var(--muted-4)] mb-10 text-lg font-light">Spots fill fast — secure your adventure today.</p>
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 bg-[var(--btn-bg)] text-[var(--btn-text)] rounded-full px-8 py-4 font-medium hover:scale-105 transition-all duration-300"
+          >
             Book Your Spot
-            <span className="flex items-center justify-center w-7 h-7 bg-black/10 rounded-full transition-transform duration-300 group-hover:rotate-45">
+            <span className="flex items-center justify-center w-7 h-7 bg-[var(--btn-icon-bg)] rounded-full transition-transform duration-300 group-hover:rotate-45">
               <FiArrowUpRight />
             </span>
-          </button>
+          </a>
         </div>
       </div>
     </div>
   );
 }
-
-
-

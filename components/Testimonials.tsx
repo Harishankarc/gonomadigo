@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/src/lib/gsap";
 import { FiStar } from "react-icons/fi";
+import SectionTag from "@/components/SectionTag";
 
 const testimonials = [
   {
@@ -89,36 +90,13 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="testimonial-header text-center mb-20">
-          <div
-            className="
-              inline-flex
-              items-center
-              gap-3
-              px-5
-              py-2
-              rounded-full
-              glass
-              mb-8
-            "
-          >
-            <div className="w-2 h-2 rounded-full bg-[#74B026]" />
-
-            <span
-              className="
-                uppercase
-                tracking-[4px]
-                text-xs
-                text-white/70
-              "
-            >
-              Testimonials
-            </span>
-          </div>
+          <SectionTag index={5} label="Testimonials" className="mb-8 justify-center" />
 
           <h2
             className="
               font-display
-              text-5xl
+              text-4xl
+              sm:text-5xl
               md:text-7xl
               mb-6
             "
@@ -149,7 +127,8 @@ export default function Testimonials() {
             testimonial-grid
             grid
             md:grid-cols-3
-            gap-8
+            gap-6
+            md:gap-8
           "
         >
           {testimonials.map((item, index) => (
@@ -182,7 +161,7 @@ export default function Testimonials() {
                   mb-8
                 "
               >
-                "{item.review}"
+                &ldquo;{item.review}&rdquo;
               </p>
 
               <div>
@@ -216,7 +195,8 @@ export default function Testimonials() {
           <h3
             className="
               font-display
-              text-4xl
+              text-3xl
+              sm:text-4xl
               md:text-6xl
               leading-tight
             "

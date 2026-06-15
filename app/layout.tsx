@@ -6,6 +6,9 @@ import {
   DM_Mono,
   Cormorant_Garamond,
 } from "next/font/google";
+import PageTransition from "@/components/PageTransition";
+import ThemeProvider from "@/components/ThemeProvider";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -38,7 +41,20 @@ export default function RootLayout({
       lang="en"
       className={`${dmSans.variable} ${dmMono.variable} ${cormorant.variable}`}
     >
-      <body>{children}</body>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.add('light')}}catch(e){}})();",
+          }}
+        />
+      </head>
+      <body>
+        <ThemeProvider>
+          <PageTransition>{children}</PageTransition>
+          <WhatsAppFloat />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

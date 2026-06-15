@@ -6,11 +6,15 @@ export default function MouseGlow() {
   const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      if (!glowRef.current) return;
+    if (!window.matchMedia("(pointer: fine)").matches) return;
 
-      glowRef.current.style.left = `${e.clientX}px`;
-      glowRef.current.style.top = `${e.clientY}px`;
+    const move = (e: MouseEvent) => {
+      const glow = glowRef.current;
+      if (!glow) return;
+
+      glow.style.left = `${e.clientX}px`;
+      glow.style.top = `${e.clientY}px`;
+      glow.style.opacity = "1";
     };
 
     window.addEventListener("mousemove", move);
@@ -23,6 +27,8 @@ export default function MouseGlow() {
     <div
       ref={glowRef}
       className="
+      hidden
+      md:block
       fixed
       w-[500px]
       h-[500px]
@@ -34,6 +40,7 @@ export default function MouseGlow() {
       -translate-y-1/2
       z-0
       "
+      style={{ opacity: 0, transition: "opacity 0.6s ease" }}
     />
   );
 }

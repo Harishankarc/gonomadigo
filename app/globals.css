@@ -40,8 +40,13 @@ body {
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
-  cursor: none;
   font-family: var(--font-sans);
+}
+
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
 }
 
 .font-display {
@@ -160,6 +165,33 @@ section {
 
 .animate-glow {
   animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes taglineReveal {
+  0%,
+  80% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+
+  93.33%,
+  95.33% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+}
+
+.animate-tagline-once {
+  animation: taglineReveal 5s ease-out 1 forwards;
+}
+
+.animate-tagline-loop {
+  animation: taglineReveal 5s ease-out infinite;
 }
 
 .opacity-0 {

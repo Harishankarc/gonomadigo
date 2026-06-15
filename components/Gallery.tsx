@@ -4,13 +4,14 @@ import { useEffect, useRef } from "react";
 import { gsap } from "@/src/lib/gsap";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
+import SectionTag from "@/components/SectionTag";
 
 const images = [
-  "/kenya.jpg",
-  "/thailand.jpg",
-  "/lakshadeep.jpg",
-  "/rajastan.jpg",
-  "/kenya.jpg",
+  { src: "/kenya.jpg", title: "Kenya Safari" },
+  { src: "/thailand.jpg", title: "Thailand Escape" },
+  { src: "/lakshadeep.jpg", title: "Lakshadweep Islands" },
+  { src: "/rajastan.jpg", title: "Rajasthan Desert" },
+  { src: "/kenya.jpg", title: "Maasai Mara" },
 ];
 
 export default function Gallery() {
@@ -19,6 +20,7 @@ export default function Gallery() {
 
   useEffect(() => {
     if (!sectionRef.current || !trackRef.current) return;
+    if (!window.matchMedia("(min-width: 768px)").matches) return;
 
     const ctx = gsap.context(() => {
       const horizontalAnimation = gsap.to(trackRef.current, {
@@ -64,9 +66,11 @@ export default function Gallery() {
       ref={sectionRef}
       className="
         relative
-        h-screen
         overflow-hidden
         bg-[#003215]
+        py-20
+        md:py-0
+        md:h-screen
       "
     >
       {/* Background Glow */}
@@ -89,44 +93,26 @@ export default function Gallery() {
       {/* Header */}
       <div
         className="
-          absolute
-          top-10
-          left-1/2
-          -translate-x-1/2
+          relative
           z-20
+          px-6
+          mb-10
           text-center
+          md:absolute
+          md:top-10
+          md:left-1/2
+          md:-translate-x-1/2
+          md:mb-0
+          md:px-0
         "
       >
-        <div
-          className="
-            glass
-            px-5
-            py-2
-            rounded-full
-            inline-flex
-            items-center
-            gap-3
-            mb-5
-          "
-        >
-          <div className="w-2 h-2 bg-[#74B026] rounded-full" />
-
-          <span
-            className="
-              text-xs
-              tracking-[4px]
-              uppercase
-              text-white/70
-            "
-          >
-            Adventure Gallery
-          </span>
-        </div>
+        <SectionTag index={3} label="Adventure Gallery" className="mb-5 justify-center" />
 
         <h2
           className="
             font-display
-            text-5xl
+            text-4xl
+            sm:text-5xl
             md:text-7xl
             text-white
           "
@@ -141,143 +127,175 @@ export default function Gallery() {
 
       {/* Gallery Track */}
       <div
-        ref={trackRef}
         className="
-          flex
-          h-screen
-          items-center
-          gap-10
-          px-[15vw]
-          w-max
+          overflow-x-auto
+          snap-x
+          snap-mandatory
+          md:contents
         "
       >
-        {images.map((img, index) => (
+        <div
+          ref={trackRef}
+          className="
+            flex
+            md:h-screen
+            items-center
+            gap-4
+            sm:gap-6
+            md:gap-10
+            px-4
+            sm:px-6
+            md:px-[15vw]
+            w-max
+          "
+        >
+          {images.map((img, index) => (
+            <div
+              key={index}
+              className="
+                snap-start
+                relative
+                w-[85vw]
+                h-[60vh]
+                md:w-[70vw]
+                md:h-[75vh]
+                rounded-[40px]
+                overflow-hidden
+                flex-shrink-0
+                glass
+              "
+            >
+              <img
+                src={img.src}
+                alt={img.title}
+                className="
+                  gallery-image
+                  absolute
+                  inset-0
+                  w-full
+                  h-full
+                  object-cover
+                "
+              />
+
+              <div
+                className="
+                  absolute
+                  inset-0
+                  bg-gradient-to-t
+                  from-[#003215]
+                  via-black/20
+                  to-transparent
+                "
+              />
+
+              <div
+                className="
+                  absolute
+                  bottom-6
+                  left-6
+                  right-6
+                  md:bottom-10
+                  md:left-10
+                  md:right-10
+                "
+              >
+                <h3
+                  className="
+                    font-display
+                    text-2xl
+                    sm:text-3xl
+                    md:text-5xl
+                    leading-tight
+                    mb-2
+                    md:mb-3
+                  "
+                >
+                  {img.title}
+                </h3>
+
+                <p
+                  className="
+                    text-white/70
+                    text-sm
+                    md:text-base
+                    max-w-md
+                  "
+                >
+                  Discover hidden trails,
+                  breathtaking landscapes,
+                  and unforgettable moments.
+                </p>
+              </div>
+            </div>
+          ))}
+
+          {/* Explore Full Gallery CTA Card */}
           <div
-            key={index}
             className="
+              snap-start
               relative
-              w-[70vw]
-              h-[75vh]
+              w-[85vw]
+              h-[60vh]
+              md:w-[40vw]
+              md:h-[75vh]
               rounded-[40px]
               overflow-hidden
               flex-shrink-0
               glass
+              flex
+              flex-col
+              items-center
+              justify-center
+              text-center
+              p-6
+              md:p-8
+              border
+              border-white/10
+              group
             "
           >
-            <img
-              src={img}
-              alt=""
-              className="
-                gallery-image
-                absolute
-                inset-0
-                w-full
-                h-full
-                object-cover
-              "
-            />
+            {/* Ambient Glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/90 to-[#003215]/80 z-0" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-[#74B026]/10 blur-[80px] group-hover:bg-[#74B026]/20 transition-all duration-700 z-0 pointer-events-none" />
 
-            <div
-              className="
-                absolute
-                inset-0
-                bg-gradient-to-t
-                from-[#003215]
-                via-black/20
-                to-transparent
-              "
-            />
+            {/* Card Content */}
+            <div className="relative z-10 flex flex-col items-center max-w-sm">
+              {/* Glowing Icon Container */}
+              <div className="w-16 h-16 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center mb-6 group-hover:border-[#74B026]/40 group-hover:bg-[#74B026]/10 transition-all duration-500 shadow-[0_0_15px_rgba(255,255,255,0.02)]">
+                <FiArrowRight className="w-6 h-6 text-[#74B026] transition-transform duration-500 group-hover:translate-x-1.5" />
+              </div>
 
-            <div
-              className="
-                absolute
-                bottom-10
-                left-10
-              "
-            >
-              <h3
-                className="
-                  font-display
-                  text-4xl
-                  md:text-5xl
-                  mb-3
-                "
-              >
-                Adventure {index + 1}
+              <h3 className="font-display text-3xl md:text-4xl text-white mb-4 leading-tight">
+                Captured<br />
+                <span className="italic text-[#74B026]">Moments</span>
               </h3>
 
-              <p
-                className="
-                  text-white/70
-                  max-w-md
-                "
-              >
-                Discover hidden trails,
-                breathtaking landscapes,
-                and unforgettable moments.
+              <p className="text-white/50 text-sm font-light leading-relaxed mb-8">
+                Step off the beaten path and browse our complete high-definition gallery of snapshots from across the globe.
               </p>
+
+              <Link
+                href="/gallery"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#74B026] hover:bg-[#8DC93A] text-white text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.03] shadow-[0_4px_20px_rgba(116,176,38,0.25)]"
+              >
+                Explore Full Gallery
+              </Link>
             </div>
-          </div>
-        ))}
-
-        {/* Explore Full Gallery CTA Card */}
-        <div
-          className="
-            relative
-            w-[50vw]
-            md:w-[40vw]
-            h-[75vh]
-            rounded-[40px]
-            overflow-hidden
-            flex-shrink-0
-            glass
-            flex
-            flex-col
-            items-center
-            justify-center
-            text-center
-            p-8
-            border
-            border-white/10
-            group
-          "
-        >
-          {/* Ambient Glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/90 to-[#003215]/80 z-0" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-[#74B026]/10 blur-[80px] group-hover:bg-[#74B026]/20 transition-all duration-700 z-0 pointer-events-none" />
-
-          {/* Card Content */}
-          <div className="relative z-10 flex flex-col items-center max-w-sm">
-            {/* Glowing Icon Container */}
-            <div className="w-16 h-16 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center mb-6 group-hover:border-[#74B026]/40 group-hover:bg-[#74B026]/10 transition-all duration-500 shadow-[0_0_15px_rgba(255,255,255,0.02)]">
-              <FiArrowRight className="w-6 h-6 text-[#74B026] transition-transform duration-500 group-hover:translate-x-1.5" />
-            </div>
-
-            <h3 className="font-display text-4xl text-white mb-4 leading-tight">
-              Captured<br />
-              <span className="italic text-[#74B026]">Moments</span>
-            </h3>
-
-            <p className="text-white/50 text-sm font-light leading-relaxed mb-8">
-              Step off the beaten path and browse our complete high-definition gallery of snapshots from across the globe.
-            </p>
-
-            <Link
-              href="/gallery"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#74B026] hover:bg-[#8DC93A] text-white text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.03] shadow-[0_4px_20px_rgba(116,176,38,0.25)]"
-            >
-              Explore Full Gallery
-            </Link>
           </div>
         </div>
       </div>
 
       <div
         className="
-          absolute
-          bottom-8
-          left-1/2
-          -translate-x-1/2
+          relative
+          mt-8
+          text-center
+          md:absolute
+          md:bottom-8
+          md:left-1/2
+          md:-translate-x-1/2
+          md:mt-0
           z-20
           text-white/50
           text-xs
@@ -285,7 +303,8 @@ export default function Gallery() {
           uppercase
         "
       >
-        Scroll To Explore ’
+        <span className="sm:hidden">Swipe To Explore</span>
+        <span className="hidden sm:inline">Scroll To Explore</span>
       </div>
     </section>
   );

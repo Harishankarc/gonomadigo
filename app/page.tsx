@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
 import MouseGlow from "@/components/MouseGlow";
+import CustomCursor from "@/components/CustomCursor";
 
 export default function Home() {
   return (
@@ -16,8 +17,9 @@ export default function Home() {
       <SmoothScroll />
       <ScrollProgress />
       <MouseGlow />
+      <CustomCursor />
 
-      <main className="bg-[#003215] text-white overflow-x-hidden">
+      <main className="bg-[var(--bg-main)] text-[var(--text)] overflow-x-hidden">
         <Navbar />
         <Hero />
         <About />

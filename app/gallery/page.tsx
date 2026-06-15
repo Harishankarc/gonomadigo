@@ -17,7 +17,9 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MouseGlow from "@/components/MouseGlow";
+import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
+import SectionTag from "@/components/SectionTag";
 
 // Dynamic gallery items
 const GALLERY_ITEMS = [
@@ -321,22 +323,23 @@ export default function GalleryPage() {
     lightboxIndex !== null ? filteredItems[lightboxIndex] : null;
 
   return (
-    <div className="min-h-screen bg-[#020d05] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] overflow-x-hidden">
       <ScrollProgress />
       <MouseGlow />
+      <CustomCursor />
       <Navbar />
 
       {/* ── Page Hero Header ── */}
-      <section className="relative pt-36 pb-20 overflow-hidden bg-gradient-to-b from-black to-[#020d05]">
+      <section className="relative pt-36 pb-20 overflow-hidden bg-[var(--bg)]">
         {/* Subtle grid lines background overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--grid-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-line)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#74B026]/5 blur-[200px] pointer-events-none" />
 
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
           {/* Breadcrumb Back link */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-white/50 hover:text-white mb-8 group transition-colors duration-300"
+            className="inline-flex items-center gap-2 text-[var(--muted-4)] hover:text-[var(--text)] mb-8 group transition-colors duration-300"
           >
             <FiArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
             <span className="text-xs font-mono tracking-widest uppercase">
@@ -346,25 +349,19 @@ export default function GalleryPage() {
 
           {/* Section Headings */}
           <div className="max-w-3xl mb-12">
-            {/* Glowing badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#74B026]/10 border border-[#74B026]/20 mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#74B026] shadow-[0_0_8px_rgba(116,176,38,0.8)]" />
-              <span className="text-xs tracking-[0.2em] text-[#74B026] uppercase font-light">
-                Moments Captured
-              </span>
-            </div>
+            <SectionTag index={1} label="Moments Captured" className="mb-5" />
 
-            <h1 className="font-display text-5xl md:text-7xl font-light text-white leading-none mb-6">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-light text-[var(--text)] leading-none mb-6">
               Adventure <span className="italic text-[#74B026]">Gallery</span>
             </h1>
 
-            <p className="text-white/50 text-base md:text-lg font-light leading-relaxed">
+            <p className="text-[var(--muted-4)] text-base md:text-lg font-light leading-relaxed">
               Explore vivid, high-definition captures from expeditions across the Savannas, tropical shorelines, and desert expanses. Select categories below to view snapshots from each territory.
             </p>
           </div>
 
           {/* ── Category Filter bar ── */}
-          <div className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none border-b border-white/5">
+          <div className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none border-b border-[var(--border)]">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.key}
@@ -372,13 +369,13 @@ export default function GalleryPage() {
                 className={`flex-shrink-0 px-6 py-2.5 rounded-full text-xs font-mono tracking-widest uppercase transition-all duration-300 border ${
                   activeCategory === cat.key
                     ? "bg-[#74B026] border-[#74B026] text-white shadow-[0_0_20px_rgba(116,176,38,0.35)]"
-                    : "border-white/10 text-white/40 hover:text-white hover:border-white/20 bg-white/[0.02]"
+                    : "border-[var(--border)] text-[var(--muted-5)] hover:text-[var(--text)] hover:border-[var(--muted-6)] bg-white/[0.02]"
                 }`}
               >
                 {cat.label}
               </button>
             ))}
-            <span className="ml-auto text-white/30 text-xs font-mono hidden md:block">
+            <span className="ml-auto text-[var(--muted-5)] text-xs font-mono hidden md:block">
               {filteredItems.length.toString().padStart(2, "0")} images found
             </span>
           </div>
@@ -438,7 +435,7 @@ export default function GalleryPage() {
               {/* Prev Button */}
               <button
                 onClick={handlePrev}
-                className="absolute left-6 md:left-12 z-20 w-12 h-12 rounded-full bg-black/40 hover:bg-[#74B026]/25 border border-white/10 text-white/60 hover:text-white flex items-center justify-center hover:border-[#74B026]/40 transition-all duration-300"
+                className="absolute left-3 md:left-12 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-[#74B026]/25 border border-white/10 text-white/60 hover:text-white flex items-center justify-center hover:border-[#74B026]/40 transition-all duration-300"
               >
                 <FiChevronLeft className="w-5 h-5" />
               </button>
@@ -446,7 +443,7 @@ export default function GalleryPage() {
               {/* Next Button */}
               <button
                 onClick={handleNext}
-                className="absolute right-6 md:right-12 z-20 w-12 h-12 rounded-full bg-black/40 hover:bg-[#74B026]/25 border border-white/10 text-white/60 hover:text-white flex items-center justify-center hover:border-[#74B026]/40 transition-all duration-300"
+                className="absolute right-3 md:right-12 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-[#74B026]/25 border border-white/10 text-white/60 hover:text-white flex items-center justify-center hover:border-[#74B026]/40 transition-all duration-300"
               >
                 <FiChevronRight className="w-5 h-5" />
               </button>

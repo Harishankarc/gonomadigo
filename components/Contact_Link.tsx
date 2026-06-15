@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
@@ -13,155 +14,184 @@ import {
     FiMapPin
 } from "react-icons/fi";
 import MouseGlow from "@/components/MouseGlow";
+import CustomCursor from "@/components/CustomCursor";
+import LocationPathOverlay from "@/components/LocationPathOverlay";
+import { useTheme } from "@/components/ThemeProvider";
+
+const LOCATION_HREF = "https://maps.app.goo.gl/Kv9Ahi9aPUJ1Tahc9?g_st=awb";
 
 const SOCIAL_LINKS = [
     {
-        id: "whatsapp",
         title: "Chat on WhatsApp",
         subtitle: "Inquire about tours, packages, and direct bookings",
         href: "https://wa.me/919567130348",
-        icon: <FiMessageSquare className="w-5 h-5" />,
-        color: "from-emerald-500/20 to-teal-500/10 border-emerald-500/30 text-emerald-400 hover:border-emerald-500/60"
+        icon: <FiMessageSquare className="w-[18px] h-[18px]" />,
+        isMap: false
     },
     {
-        id: "instagram",
         title: "Follow on Instagram",
         subtitle: "View snapshots, stories, and visual travel diaries",
         href: "https://www.instagram.com/gonomadigo/",
-        icon: <FiInstagram className="w-5 h-5" />,
-        color: "from-pink-500/20 to-rose-500/10 border-pink-500/30 text-pink-400 hover:border-pink-500/60"
+        icon: <FiInstagram className="w-[18px] h-[18px]" />,
+        isMap: false
     },
     {
-        id: "website",
         title: "Official Website",
         subtitle: "Explore detailed itineraries and travel galleries",
         href: "https://www.gonomadigo.com",
-        icon: <FiGlobe className="w-5 h-5" />,
-        color: "from-[#74B026]/20 to-[#8DC93A]/10 border-[#74B026]/30 text-[#74B026] hover:border-[#74B026]/60"
+        icon: <FiGlobe className="w-[18px] h-[18px]" />,
+        isMap: false
     },
     {
-        id: "location",
         title: "Our Location",
         subtitle: "Find us on Google Maps",
-        href: "https://maps.app.goo.gl/Kv9Ahi9aPUJ1Tahc9?g_st=awb",
-        icon: <FiMapPin className="w-5 h-5" />,
-        color: "from-amber-500/20 to-orange-500/10 border-amber-500/30 text-amber-400 hover:border-amber-500/60"
+        href: LOCATION_HREF,
+        icon: <FiMapPin className="w-[18px] h-[18px]" />,
+        isMap: true
     },
     {
-        id: "gmail",
         title: "Email Us",
         subtitle: "Send business inquiries or customized itinerary requests",
         href: "mailto:gonomadigo@gmail.com",
-        icon: <FiMail className="w-5 h-5" />,
-        color: "from-sky-500/20 to-blue-500/10 border-sky-500/30 text-sky-400 hover:border-sky-500/60"
+        icon: <FiMail className="w-[18px] h-[18px]" />,
+        isMap: false
     }
 ];
 
 export default function ContactLink() {
+    const { theme } = useTheme();
+    const [mapOpen, setMapOpen] = useState(false);
+
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         show: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.1
+                staggerChildren: 0.08
             }
         }
     };
 
     const itemVariants: Variants = {
-        hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+        hidden: { opacity: 0, y: 16 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
     };
 
     return (
-        <div className="min-h-screen bg-[#020d05] text-white flex flex-col justify-between items-center relative overflow-hidden px-6 py-12">
+        <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] flex flex-col justify-between items-center relative overflow-hidden px-6 py-12 grain">
             <MouseGlow />
-            {/* Dynamic Grid Background Overlay */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
+            <CustomCursor />
+            <LocationPathOverlay open={mapOpen} onClose={() => setMapOpen(false)} mapHref={LOCATION_HREF} transparent />
 
-            {/* Floating Ambient Glows */}
-            <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#74B026]/5 blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-emerald-500/5 blur-[120px] pointer-events-none" />
+            {/* Grid Background Overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--grid-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-line)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
 
-            {/* Main Content Card Container */}
-            <div className="w-full max-w-[480px] flex-1 flex flex-col justify-center items-center relative z-10 py-8">
+            {/* Ambient Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-[#74B026]/8 blur-[220px] pointer-events-none" />
 
-                {/* Profile Branding Header */}
+            {/* Main Content */}
+            <div className="w-full max-w-[440px] flex-1 flex flex-col justify-center items-center relative z-10 py-8">
+
+                {/* Branding Header */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, y: -12 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="flex flex-col items-center text-center mb-10"
+                    className="flex flex-col items-center text-center mb-12"
                 >
-                    {/* Logo Frame */}
-                    <div className="relative w-44 h-16 mb-4 flex items-center justify-center p-3 rounded-2xl bg-white/[0.02] border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-md">
+                    <div className="relative w-4xl md:w-27 h-12 mb-5">
                         <Image
                             src="/gonomadigologo.png"
-                            alt="Gonomadigo Logo"
+                            alt="Gonomadigo"
                             fill
-                            className="object-contain p-2"
-                            style={{ filter: "brightness(0) invert(1)" }}
+                            className="object-contain"
+                            style={{ filter: theme === "dark" ? "brightness(0) invert(1)" : "none" }}
                             priority
                         />
                     </div>
 
-                    <span className="text-[#74B026] font-mono text-xs tracking-[0.25em] uppercase font-light">
-                        @gonomadigo
-                    </span>
+                    <h1 className="font-display text-3xl italic mb-3">
+                        Gono<span className="text-[#74B026]">madigo</span>
+                    </h1>
 
-                    <p className="text-white/50 text-sm mt-3 font-light max-w-[280px] leading-relaxed">
+                    <div className="h-px w-10 bg-[#74B026]/40 mb-3" />
+
+                    <p className="text-[var(--muted-4)] text-sm font-light max-w-[300px] leading-relaxed">
                         Curated safaris, tropical retreats, and moments beyond the trail.
                     </p>
                 </motion.div>
 
-                {/* Dynamic Staggered Links Grid */}
+                {/* Links */}
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     animate="show"
-                    className="w-full space-y-4"
+                    className="w-full flex flex-col gap-3"
                 >
-                    {SOCIAL_LINKS.map((link) => (
-                        <motion.div key={link.id} variants={itemVariants}>
-                            <Link
-                                href={link.href}
-                                target={link.href.startsWith("http") || link.href.startsWith("mailto") ? "_blank" : undefined}
-                                rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                className={`flex items-center gap-4 w-full p-4.5 rounded-2xl border bg-gradient-to-br transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_4px_25px_rgba(0,0,0,0.3)] backdrop-blur-md group ${link.color}`}
-                            >
-                                {/* Brand icon block */}
-                                <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center shrink-0 group-hover:bg-white/[0.06] transition-colors duration-300">
+                    {SOCIAL_LINKS.map((link, index) => {
+                        const itemContent = (
+                            <>
+                                {/* Index */}
+                                <span className="hidden sm:block font-mono text-[11px] text-[var(--muted-6)] tracking-[0.15em] shrink-0 group-hover:text-[#74B026]/60 transition-colors duration-300">
+                                    {String(index + 1).padStart(2, "0")}
+                                </span>
+
+                                {/* Icon */}
+                                <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-[var(--border)] flex items-center justify-center shrink-0 text-[var(--muted-3)] group-hover:text-[#74B026] group-hover:border-[#74B026]/25 transition-colors duration-300">
                                     {link.icon}
                                 </div>
 
-                                {/* Text titles block */}
+                                {/* Text */}
                                 <div className="flex-1 text-left min-w-0">
-                                    <h4 className="text-sm font-semibold text-white/90 leading-tight">
+                                    <h4 className="text-sm font-medium text-[var(--text)] leading-tight">
                                         {link.title}
                                     </h4>
-                                    <p className="text-[11px] text-white/40 font-light truncate mt-0.5 leading-none">
+                                    <p className="text-[11px] text-[var(--muted-5)] font-light truncate mt-0.5 leading-none">
                                         {link.subtitle}
                                     </p>
                                 </div>
 
-                                {/* Arrow indicator */}
-                                <FiArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-white/70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
-                            </Link>
-                        </motion.div>
-                    ))}
+                                {/* Arrow */}
+                                <FiArrowUpRight className="w-4 h-4 text-[var(--muted-6)] group-hover:text-[#74B026] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0" />
+                            </>
+                        );
+
+                        return (
+                            <motion.div key={link.title} variants={itemVariants}>
+                                {link.isMap ? (
+                                    <button
+                                        type="button"
+                                        onClick={() => setMapOpen(true)}
+                                        className="flex items-center gap-4 w-full p-4 rounded-2xl border border-[var(--border)] bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-[#74B026]/35 hover:bg-[#74B026]/[0.04] group text-left"
+                                    >
+                                        {itemContent}
+                                    </button>
+                                ) : (
+                                    <Link
+                                        href={link.href}
+                                        target={link.href.startsWith("http") || link.href.startsWith("mailto") ? "_blank" : undefined}
+                                        rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                        className="flex items-center gap-4 w-full p-4 rounded-2xl border border-[var(--border)] bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-[#74B026]/35 hover:bg-[#74B026]/[0.04] group"
+                                    >
+                                        {itemContent}
+                                    </Link>
+                                )}
+                            </motion.div>
+                        );
+                    })}
                 </motion.div>
             </div>
 
-            {/* Footer Branded Backlink */}
+            {/* Footer Backlink */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-                className="relative z-10 flex flex-col items-center gap-3 pt-6 border-t border-white/5 w-full max-w-[240px] text-center"
+                transition={{ delay: 0.6, duration: 0.5 }}
+                className="relative z-10 flex flex-col items-center gap-3 pt-6 border-t border-[var(--border)] w-full max-w-[240px] text-center"
             >
                 <Link
                     href="/"
-                    className="inline-flex items-center gap-1.5 text-[11px] text-white/30 hover:text-[#74B026] tracking-widest font-mono uppercase transition-colors duration-300"
+                    className="inline-flex items-center gap-1.5 text-[11px] text-[var(--muted-5)] hover:text-[#74B026] tracking-widest font-mono uppercase transition-colors duration-300"
                 >
                     <FiCompass className="w-3.5 h-3.5" />
                     <span>gonomadigo.com</span>

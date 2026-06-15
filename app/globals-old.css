@@ -1,6 +1,48 @@
 @import "tailwindcss";
 
+:root {
+  --bg: #020d05;
+  --bg-main: #003215;
+  --text: #ffffff;
+  --surface: #000000;
+  --border: rgba(255, 255, 255, 0.1);
+  --muted-1: rgba(255, 255, 255, 0.8);
+  --muted-2: rgba(255, 255, 255, 0.7);
+  --muted-3: rgba(255, 255, 255, 0.6);
+  --muted-4: rgba(255, 255, 255, 0.5);
+  --muted-5: rgba(255, 255, 255, 0.4);
+  --muted-6: rgba(255, 255, 255, 0.2);
+  --hover-bg: rgba(255, 255, 255, 0.1);
+  --ghost: rgba(255, 255, 255, 0.03);
+  --btn-bg: #ffffff;
+  --btn-text: #002215;
+  --btn-bg-hover: #F3FFE7;
+  --btn-icon-bg: rgba(0, 0, 0, 0.1);
+  --grid-line: rgba(255, 255, 255, 0.02);
+}
+
+.light {
+  --bg: #FAFCF7;
+  --bg-main: #FAFCF7;
+  --text: #000000;
+  --surface: #ffffff;
+  --border: rgba(14, 27, 18, 0.1);
+  --muted-1: rgba(14, 27, 18, 0.78);
+  --muted-2: rgba(14, 27, 18, 0.65);
+  --muted-3: rgba(14, 27, 18, 0.55);
+  --muted-4: rgba(14, 27, 18, 0.45);
+  --muted-5: rgba(14, 27, 18, 0.35);
+  --muted-6: rgba(14, 27, 18, 0.18);
+  --hover-bg: rgba(14, 27, 18, 0.05);
+  --ghost: rgba(14, 27, 18, 0.03);
+  --btn-bg: #0e2f1a;
+  --btn-text: #FAFCF7;
+  --btn-bg-hover: #16431f;
+  --btn-icon-bg: rgba(255, 255, 255, 0.14);
+  --grid-line: rgba(14, 27, 18, 0.04);
+}
+
 body {
-  background: black;
-  color: white;
+  background: var(--bg);
+  color: var(--text);
 }
